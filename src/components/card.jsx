@@ -1,18 +1,17 @@
-import React from "react";
-import { motion } from "framer-motion";
 
-const card = ({ icon, title, description, onClick }) => {
+import React from 'react';
+
+function FeatureCard({ icon, title, description, onClick }) {
   return (
-    <motion.div
-      whileHover={{ scale: 1.05, y: -5 }}
-      className="p-6 bg-white rounded-2xl shadow-md hover:shadow-2xl transition cursor-pointer"
+    <div 
+      className="bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition-shadow cursor-pointer"
       onClick={onClick}
     >
       <div className="text-4xl mb-4">{icon}</div>
       <h3 className="text-xl font-semibold mb-2">{title}</h3>
       <p className="text-gray-600">{description}</p>
-    </motion.div>
+    </div>
   );
-};
+}
 
-export default card;
+export default FeatureCard;

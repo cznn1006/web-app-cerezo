@@ -1,55 +1,43 @@
-import React from "react";
-import { motion } from "framer-motion";
-import Navbar from "../../components/Navbar";
-import ModelS from "../../assets/images (3).jpeg";
-import Model3 from "../../assets/images (6).jpeg";
-import ModelX from "../../assets/images (7).jpeg";
-import ModelY from "../../assets/tesla-car-models-list1.jpg";
+// src/pages/user/listing.jsx
+import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import PrimaryButton from '../../components/PrimaryButton';
+import SportsterX from '../../assets/2022_toyota_gr-supra_coupe_20_fq_oem_1_600.avif';
+import LuxuryCruiser from '../../assets/2025_toyota_corolla-cross_4dr-suv_l_fq_oem_1_600.avif';
+import EcoCompact from '../../assets/2924733.jpg';
 
-const ListingPage = () => {
-  const cars = [
-    { name: "Model S", price: "$74,990", range: "396 mi", img: ModelS },
-    { name: "Model 3", price: "$38,990", range: "341 mi", img: Model3 },
-    { name: "Model X", price: "$79,990", range: "348 mi", img: ModelX },
-    { name: "Model Y", price: "$43,990", range: "330 mi", img: ModelY },
-  ];
+const cars = [
+  { id: 1, name: 'Sportster X', image: SportsterX },
+  { id: 2, name: 'Luxury Cruiser', image: LuxuryCruiser },
+  { id: 3, name: 'Eco Compact', image:  EcoCompact},
+];
+
+function Listing() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const selectedIndex = location.state?.index;
+
+  const handleOrder = (carId) => {
+    navigate('/order', { state: { carId } });
+  };
 
   return (
-    <div className="bg-gray-50 min-h-screen">
-      <Navbar />
+    <div className="container mx-auto py-12 px-4">
+      <h2 className="text-3xl font-semibold mb-8">Available Cars</h2>
 
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-center py-12"
-      >
-        <h1 className="text-4xl font-bold text-gray-800">Explore Our Models</h1>
-        <p className="text-gray-600 mt-2">Choose the Tesla that fits your lifestyle.</p>
-      </motion.div>
-
-      {/* Car Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-8 pb-20">
-        {cars.map((car, index) => (
-          <motion.div
-            key={car.name}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.2 }}
-            className="bg-white rounded-2xl shadow-md hover:shadow-2xl transition overflow-hidden"
-          >
-            <img src={car.img} alt={car.name} className="w-full h-48 object-cover" />
-            <div className="p-6 text-center">
-              <h2 className="text-2xl font-semibold text-gray-800">{car.name}</h2>
-              <p className="text-gray-500 mb-1">Range: {car.range}</p>
-              <p className="text-red-600 font-bold text-lg">{car.price}</p>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {cars.map((car) => (
+          <div key={car.id} className="bg-white shadow-lg rounded-lg overflow-hidden">
+            <img src={car.image} alt={car.name} className="w-full h-48 object-cover" />
+            <div className="p-4">
+              <h3 className="text-xl font-semibold mb-2">{car.name}</h3>
+              <PrimaryButton label="Order This Car" onClick={() => handleOrder(car.id)} type="primary" />
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
     </div>
   );
-};
+}
 
-export default ListingPage;
+export default Listing;

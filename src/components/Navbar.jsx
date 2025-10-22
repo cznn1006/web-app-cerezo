@@ -1,47 +1,24 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
 
-const Navbar = () => {
-  const linkClass = ({ isActive }) =>
-    `hover:text-red-500 transition font-medium ${
-      isActive ? "text-red-500" : "text-white"
-    }`;
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+function NavBar() {
+  const navigate = useNavigate();
 
   return (
-    <nav className="flex justify-between items-center px-10 py-4 bg-black text-white sticky top-0 z-50 shadow-md">
-      <NavLink to="/" className="text-2xl font-bold tracking-wide">
-        TESLA
-      </NavLink>
-
-      <ul className="flex space-x-8">
-        <li>
-          <NavLink to="/" className={linkClass}>
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/listing" className={linkClass}>
-            Models
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/order" className={linkClass}>
-            Order
-          </NavLink>
-        </li>
-        <li>
-          <a
-            href="https://shop.tesla.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-red-500 transition"
-          >
-            Shop
-          </a>
-        </li>
-      </ul>
+    <nav className="bg-white shadow-md py-4">
+      <div className="container mx-auto flex justify-between items-center px-4">
+        <div className="text-xl font-semibold cursor-pointer" onClick={() => navigate('/')}>
+          CarCompany
+        </div>
+        <div className="space-x-4">
+          <Link to="/" className="hover:text-blue-600">Home</Link>
+          <Link to="/listing" className="hover:text-blue-600">Listing</Link>
+          <Link to="/order" className="hover:text-blue-600">Order</Link>
+        </div>
+      </div>
     </nav>
   );
-};
+}
 
-export default Navbar;
+export default NavBar;
